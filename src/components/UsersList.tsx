@@ -1,9 +1,5 @@
-import {
-  BellIcon,
-  CheckIcon,
-  CodeIcon,
-  TrashIcon,
-} from "@radix-ui/react-icons";
+"use client";
+import { BellIcon, CodeIcon, TrashIcon } from "@radix-ui/react-icons";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -15,59 +11,44 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-const notifications = [
-  {
-    title: "Your call has been confirmed.",
-    description: "1 hour ago",
-  },
-  {
-    title: "You have a new message!",
-    description: "1 hour ago",
-  },
-  {
-    title: "Your subscription is expiring soon!",
-    description: "2 hours ago",
-  },
-];
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
 const UsersList = ({ className, ...props }: CardProps) => {
+  const users = useSelector((state: RootState) => state.users.users);
+
   return (
     <Card className={cn("max-w-3xl mx-auto", className)} {...props}>
       <CardHeader className="text-center">
         <CardTitle>Users List</CardTitle>
-        <CardDescription>You have 3 users.</CardDescription>
+        <CardDescription>You have {users.length} users.</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4">
         <div className=" flex items-center space-x-4 rounded-md border p-4">
           <BellIcon />
           <div className="flex-1 space-y-1">
-            <p className="text-sm font-medium leading-none">
-              Push Notifications
-            </p>
+            <p className="text-sm font-medium leading-none">Push Users</p>
             <p className="text-sm text-muted-foreground">
-              Send notifications to device.
+              Send users to device.
             </p>
           </div>
           <CodeIcon className="h-6 w-6"></CodeIcon>
         </div>
-        <div>
-          {notifications.map((notification, index) => (
+        <div className="space-y-3">
+          {users.map(user => (
             <div
-              key={index}
-              className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0"
+              key={user.id}
+              className="flex items-start justify-between gap-2"
             >
-              <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
-              <div className="flex items-center justify-between">
+              <span className="flex h-2 w-2 translate-y-3 rounded-full bg-sky-500" />
+              <div className="flex-1 flex items-center justify-between">
                 <div className="space-y-1">
-                  <p className="text-sm font-medium leading-none">
-                    {notification.title}
+                  <p className="text-xl font-medium leading-relaxed capitalize">
+                    {user.name}
                   </p>
-                  <p className="text-sm text-muted-foreground">
-                    {notification.description}
-                  </p>
+                  <p className="text-xs text-muted-foreground">{user.id}</p>
                 </div>
                 <Button variant={"destructive"} size={"icon"}>
                   <TrashIcon></TrashIcon>

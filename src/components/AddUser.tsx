@@ -14,6 +14,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { addUser } from "@/redux/usersSlice";
+import { useDispatch } from "react-redux";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -22,6 +24,7 @@ const formSchema = z.object({
 });
 
 const AddUser = () => {
+  const dispatch = useDispatch();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -29,12 +32,12 @@ const AddUser = () => {
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
+  const { isSubmitting } = form.formState;
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    dispatch(addUser(values));
+    form.reset();
+  };
   return (
     <div className="border shadow rounded-md p-10 max-w-3xl mx-auto">
       <Form {...form}>
@@ -55,7 +58,9 @@ const AddUser = () => {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={isSubmitting}>
+            Submit
+          </Button>
         </form>
       </Form>
     </div>
