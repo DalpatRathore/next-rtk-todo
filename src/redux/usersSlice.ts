@@ -14,10 +14,14 @@ const initialState:UserState ={
 }
 
 type AddUserPayload={
-    username:string
+    username:string;
+}
+type EditUserPayload={
+    id:string;
+    username:string;
 }
 type RemoveUserPayload={
-    id:string
+    id:string;
 }
 const usersSlice  = createSlice ({
     name:'users',
@@ -33,11 +37,18 @@ const usersSlice  = createSlice ({
       
         removeUser: (state, action: PayloadAction<RemoveUserPayload>) => {
             state.users = state.users.filter(user => user.id !== action.payload.id);
+        },
+        editUser:(state,action:PayloadAction<EditUserPayload>)=>{
+            
+            const editUser = state.users.find(user => user.id===action.payload.id);
+            if(editUser){
+                editUser.name=action.payload.username;
+            }
         }
 
     }
 });
 
-export const {addUser,removeUser}= usersSlice.actions
+export const {addUser,removeUser, editUser}= usersSlice.actions
 
 export default usersSlice.reducer;
