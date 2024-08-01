@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { addUser } from "@/redux/usersSlice";
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -37,6 +38,7 @@ const AddUser = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     dispatch(addUser(values));
     form.reset();
+    toast.success("Username successfully added!");
   };
   return (
     <div className="border shadow rounded-md p-10 max-w-3xl mx-auto">

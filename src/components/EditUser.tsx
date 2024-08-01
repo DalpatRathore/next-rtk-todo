@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { editUser } from "@/redux/usersSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -36,8 +37,6 @@ const EditUser = ({ id, open, onClose }: EditUserProps) => {
   const user = useSelector((state: RootState) =>
     state.users.users.find(user => user.id === id)
   );
-
-  console.log(user);
 
   const dispatch = useDispatch();
 
@@ -57,6 +56,7 @@ const EditUser = ({ id, open, onClose }: EditUserProps) => {
     };
     dispatch(editUser(data));
     form.reset();
+    toast.success("Username successfully updated!");
     onClose();
   };
   return (

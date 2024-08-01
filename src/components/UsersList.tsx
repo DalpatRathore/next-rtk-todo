@@ -22,6 +22,7 @@ import { RootState } from "@/redux/store";
 import { removeUser } from "@/redux/usersSlice";
 import EditUser from "./EditUser";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -34,6 +35,7 @@ const UsersList = ({ className, ...props }: CardProps) => {
 
   const handleRemoveUser = (id: string) => {
     dispatch(removeUser({ id }));
+    toast.success("Username deleted!");
   };
 
   const handleEditClick = (id: string) => {
