@@ -41,7 +41,7 @@ const AddUser = () => {
     toast.success("Username successfully added!");
   };
   return (
-    <div className="border shadow rounded-md p-10 max-w-3xl mx-auto">
+    <div className="border shadow rounded-md p-10 w-full">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField

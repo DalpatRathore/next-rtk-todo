@@ -52,7 +52,7 @@ const UsersList = ({ className, ...props }: CardProps) => {
           onClose={() => setOpen(false)}
         ></EditUser>
       )}
-      <Card className={cn("max-w-3xl mx-auto", className)} {...props}>
+      <Card className={cn("w-full", className)} {...props}>
         <CardHeader className="text-center">
           <CardTitle>Users List</CardTitle>
           <CardDescription>You have {users.length} users.</CardDescription>
