@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { addTask } from "@/redux/taskSlice";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
-import { PlusCircledIcon, PlusIcon } from "@radix-ui/react-icons";
+import { PlusCircledIcon } from "@radix-ui/react-icons";
 
 const formSchema = z.object({
   task: z.string().min(2, {
@@ -50,16 +50,21 @@ const AddTask = () => {
             name="task"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Task</FormLabel>
+                <FormLabel>Task Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Go for gym" {...field} />
+                  <Input placeholder="For e.g. Go for gym" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" disabled={isSubmitting} size={"lg"}>
-            Add
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            size={"lg"}
+            className=" w-full"
+          >
+            Add Task
             <PlusCircledIcon className="ml-2"></PlusCircledIcon>
           </Button>
         </form>

@@ -73,7 +73,7 @@ const TasksList = ({ className, ...props }: CardProps) => {
               tasks.map(task => (
                 <div
                   key={task.id}
-                  className="flex items-start justify-between gap-2"
+                  className="flex items-start justify-between gap-2 border-b pb-3"
                 >
                   <span className="flex h-2 w-2 translate-y-3 rounded-full bg-sky-500" />
                   <div className="flex-1 flex items-center justify-between">

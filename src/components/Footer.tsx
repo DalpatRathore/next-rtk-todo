@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="w-full flex flex-col-reverse md:flex-row items-center justify-between bg-zinc-50 text-surface dark:bg-neutral-700 dark:text-white gap-5 rounded-md mx-auto max-w-screen-xl px-5 py-5">
+    <footer className="w-full flex flex-col-reverse md:flex-row items-center justify-between bg-zinc-50 text-surface dark:bg-neutral-700 dark:text-white gap-5 rounded-md mx-auto max-w-screen-xl px-5 py-5 my-1">
       <div className="w-full text-center md:text-left">
         <p className="text-sm text-muted-foreground">
           <span className="font-semibold">NOTE: </span>The app stores data in
