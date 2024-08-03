@@ -19,10 +19,13 @@ import {
 } from "@/components/ui/card";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { removeTask } from "@/redux/taskSlice";
+import { removeTask, toggleTaskCompletion } from "@/redux/taskSlice";
 import EditTask from "./EditTask";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { formatDate } from "date-fns";
+import { formatDateTime } from "@/lib/formatter";
+import { Checkbox } from "./ui/checkbox";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -30,6 +33,8 @@ const TasksList = ({ className, ...props }: CardProps) => {
   const [open, setOpen] = useState(false);
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
+
+  console.log(tasks);
 
   const dispatch = useDispatch();
 
@@ -41,6 +46,9 @@ const TasksList = ({ className, ...props }: CardProps) => {
   const handleEditClick = (id: string) => {
     setSelectedTaskId(id);
     setOpen(true);
+  };
+  const handleTaskCompletionToggle = (id: string) => {
+    dispatch(toggleTaskCompletion({ id }));
   };
 
   return (
@@ -75,13 +83,27 @@ const TasksList = ({ className, ...props }: CardProps) => {
                   key={task.id}
                   className="flex items-start justify-between gap-2 border-b pb-3"
                 >
-                  <span className="flex h-2 w-2 translate-y-3 rounded-full bg-sky-500" />
+                  <Checkbox
+                    className="translate-y-2 mr-2 w-5 h-5"
+                    checked={task.completed}
+                    onCheckedChange={() => handleTaskCompletionToggle(task.id)}
+                  />
                   <div className="flex-1 flex items-center justify-between">
                     <div className="space-y-1">
-                      <p className="text-base font-medium leading-relaxed capitalize">
+                      <p
+                        className={cn(
+                          "text-base font-medium leading-relaxed capitalize",
+                          task.completed && "line-through"
+                        )}
+                      >
                         {task.name}
                       </p>
-                      <p className="text-xs text-muted-foreground">{task.id}</p>
+                      <div className="flex items-center justify-center gap-1">
+                        <span className="flex h-2 w-2 rounded-full bg-sky-500" />
+                        <span className="text-xs text-muted-foreground">
+                          {formatDateTime(task.date)}
+                        </span>
+                      </div>
                     </div>
                     <div className="flex items-center justify-center gap-5">
                       <Button
