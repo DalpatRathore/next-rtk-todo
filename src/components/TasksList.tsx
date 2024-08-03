@@ -19,82 +19,82 @@ import {
 } from "@/components/ui/card";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { removeUser } from "@/redux/usersSlice";
-import EditUser from "./EditUser";
+import { removeTask } from "@/redux/taskSlice";
+import EditTask from "./EditTask";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
-const UsersList = ({ className, ...props }: CardProps) => {
+const TasksList = ({ className, ...props }: CardProps) => {
   const [open, setOpen] = useState(false);
-  const users = useSelector((state: RootState) => state.users.users);
-  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const tasks = useSelector((state: RootState) => state.tasks.tasks);
+  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
 
   const dispatch = useDispatch();
 
-  const handleRemoveUser = (id: string) => {
-    dispatch(removeUser({ id }));
-    toast.success("Username deleted!");
+  const handleRemoveTask = (id: string) => {
+    dispatch(removeTask({ id }));
+    toast.success("Task deleted successfully!");
   };
 
   const handleEditClick = (id: string) => {
-    setSelectedUserId(id);
+    setSelectedTaskId(id);
     setOpen(true);
   };
 
   return (
     <>
-      {open && selectedUserId && (
-        <EditUser
-          id={selectedUserId}
+      {open && selectedTaskId && (
+        <EditTask
+          id={selectedTaskId}
           open={open}
           onClose={() => setOpen(false)}
-        ></EditUser>
+        ></EditTask>
       )}
       <Card className={cn("w-full", className)} {...props}>
         <CardHeader className="text-center">
-          <CardTitle>Users List</CardTitle>
-          <CardDescription>You have {users.length} users.</CardDescription>
+          <CardTitle>Tasks List</CardTitle>
+          <CardDescription>You have {tasks.length} tasks.</CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
           <div className=" flex items-center space-x-4 rounded-md border p-4">
             <BellIcon />
             <div className="flex-1 space-y-1">
-              <p className="text-sm font-medium leading-none">Push Users</p>
-              <p className="text-sm text-muted-foreground">
-                Send users to device.
+              <p className="text-sm font-medium leading-none">Add Tasks</p>
+              <p className="text-xs text-muted-foreground">
+                Let your productivity shine!
               </p>
             </div>
             <CodeIcon className="h-6 w-6"></CodeIcon>
           </div>
           <div className="space-y-3">
-            {users.length > 0 ? (
-              users.map(user => (
+            {tasks.length > 0 ? (
+              tasks.map(task => (
                 <div
-                  key={user.id}
+                  key={task.id}
                   className="flex items-start justify-between gap-2"
                 >
                   <span className="flex h-2 w-2 translate-y-3 rounded-full bg-sky-500" />
                   <div className="flex-1 flex items-center justify-between">
                     <div className="space-y-1">
-                      <p className="text-xl font-medium leading-relaxed capitalize">
-                        {user.name}
+                      <p className="text-base font-medium leading-relaxed capitalize">
+                        {task.name}
                       </p>
-                      <p className="text-xs text-muted-foreground">{user.id}</p>
+                      <p className="text-xs text-muted-foreground">{task.id}</p>
                     </div>
                     <div className="flex items-center justify-center gap-5">
                       <Button
                         variant={"default"}
                         size={"icon"}
-                        onClick={() => handleEditClick(user.id)}
+                        onClick={() => handleEditClick(task.id)}
                       >
                         <Pencil2Icon></Pencil2Icon>
                       </Button>
                       <Button
                         variant={"destructive"}
                         size={"icon"}
-                        onClick={() => handleRemoveUser(user.id)}
+                        onClick={() => handleRemoveTask(task.id)}
                       >
                         <TrashIcon></TrashIcon>
                       </Button>
@@ -104,15 +104,15 @@ const UsersList = ({ className, ...props }: CardProps) => {
               ))
             ) : (
               <p className="text-muted-foreground my-10 italic flex items-center justify-center gap-2">
-                No users <ValueNoneIcon></ValueNoneIcon>
+                No tasks <ValueNoneIcon></ValueNoneIcon>
               </p>
             )}
           </div>
         </CardContent>
         <CardFooter>
           <Button className="w-full" variant={"secondary"}>
-            <CodeIcon className="mr-2 h-4 w-4" />
-            Next.js with ReduxToolkit
+            <CodeIcon className="mr-2 h-5 w-5" />
+            Next.js Todo with ReduxToolkit (RTK)
           </Button>
         </CardFooter>
       </Card>
@@ -120,4 +120,4 @@ const UsersList = ({ className, ...props }: CardProps) => {
   );
 };
 
-export default UsersList;
+export default TasksList;

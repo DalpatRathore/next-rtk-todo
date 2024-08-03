@@ -47,12 +47,12 @@ const Header = () => {
               </svg>
             </button>
 
-            <Link href={"/add-user"}>
+            <Link href={"/add-task"}>
               <button
                 className="inline-block rounded bg-indigo-600 px-5 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring"
                 type="button"
               >
-                Add User
+                Add Task
               </button>
             </Link>
           </div>

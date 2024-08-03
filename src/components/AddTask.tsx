@@ -14,54 +14,53 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { addUser } from "@/redux/usersSlice";
+import { addTask } from "@/redux/taskSlice";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
+import { PlusCircledIcon, PlusIcon } from "@radix-ui/react-icons";
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  task: z.string().min(2, {
+    message: "Task must be at least 2 characters.",
   }),
 });
 
-const AddUser = () => {
+const AddTask = () => {
   const dispatch = useDispatch();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      task: "",
     },
   });
 
   const { isSubmitting } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    dispatch(addUser(values));
+    dispatch(addTask(values));
     form.reset();
-    toast.success("Username successfully added!");
+    toast.success("Task added successfully!");
   };
   return (
-    <div className="border shadow rounded-md p-10 w-full">
+    <div className="border shadow rounded-md p-5 w-full max-w-lg">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
             control={form.control}
-            name="username"
+            name="task"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>Task</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Input placeholder="Go for gym" {...field} />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
           <Button type="submit" disabled={isSubmitting}>
-            Submit
+            Add
+            <PlusCircledIcon className="ml-2"></PlusCircledIcon>
           </Button>
         </form>
       </Form>
@@ -69,4 +68,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default AddTask;

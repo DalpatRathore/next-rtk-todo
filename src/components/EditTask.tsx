@@ -16,26 +16,26 @@ import {
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 import { Input } from "@/components/ui/input";
-import { editUser } from "@/redux/usersSlice";
+import { editTask } from "@/redux/taskSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import toast from "react-hot-toast";
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  task: z.string().min(2, {
+    message: "Task must be at least 2 characters.",
   }),
 });
 
-type EditUserProps = {
+type EditTaskProps = {
   id: string;
   open: boolean;
   onClose: () => void;
 };
 
-const EditUser = ({ id, open, onClose }: EditUserProps) => {
-  const user = useSelector((state: RootState) =>
-    state.users.users.find(user => user.id === id)
+const EditTask = ({ id, open, onClose }: EditTaskProps) => {
+  const task = useSelector((state: RootState) =>
+    state.tasks.tasks.find(task => task.id === id)
   );
 
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ const EditUser = ({ id, open, onClose }: EditUserProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: user?.name,
+      task: task?.name,
     },
   });
 
@@ -51,12 +51,12 @@ const EditUser = ({ id, open, onClose }: EditUserProps) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const data = {
-      id: user?.id || "1",
-      username: values.username,
+      id: task?.id || "1",
+      task: values.task,
     };
-    dispatch(editUser(data));
+    dispatch(editTask(data));
     form.reset();
-    toast.success("Username successfully updated!");
+    toast.success("Task updated successfully!");
     onClose();
   };
   return (
@@ -67,10 +67,10 @@ const EditUser = ({ id, open, onClose }: EditUserProps) => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <FormField
                 control={form.control}
-                name="username"
+                name="task"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>Task</FormLabel>
                     <FormControl>
                       <Input placeholder="shadcn" {...field} />
                     </FormControl>
@@ -92,4 +92,4 @@ const EditUser = ({ id, open, onClose }: EditUserProps) => {
   );
 };
 
-export default EditUser;
+export default EditTask;
