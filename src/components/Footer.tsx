@@ -1,13 +1,13 @@
 const Footer = () => {
   return (
-    <footer className="w-full flex flex-col-reverse md:flex-row items-center justify-between bg-zinc-50 text-surface dark:bg-neutral-700 dark:text-white py-5">
-      <div className="w-full text-center">
-        <p className="text-muted-foreground">
+    <footer className="w-full flex flex-col-reverse md:flex-row items-center justify-between bg-zinc-50 text-surface dark:bg-neutral-700 dark:text-white py-5 gap-5 px-5 rounded-md">
+      <div className="w-full text-center md:text-left">
+        <p className="text-sm text-muted-foreground">
           NOTE: App data is stored only in local storage.
         </p>
       </div>
 
-      <div className="w-full flex justify-center space-x-2">
+      <div className="w-full flex justify-center md:justify-end space-x-2">
         <a
           href="#!"
           type="button"
