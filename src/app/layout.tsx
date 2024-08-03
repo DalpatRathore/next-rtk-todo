@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "@/redux/providers";
 import Header from "@/components/Header";
 import { Toaster } from "react-hot-toast";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} w-full max-w-7xl mx-auto`}>
         <Providers>
           <Header></Header>
           {children}
+          <Footer></Footer>
           <Toaster position="top-center" />
         </Providers>
       </body>
