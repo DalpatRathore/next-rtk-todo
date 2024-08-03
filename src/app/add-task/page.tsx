@@ -3,7 +3,7 @@ import TasksList from "@/components/TasksList";
 
 const AddTaskPage = () => {
   return (
-    <main className="w-full flex flex-col md:flex-row items-start justify-between gap-5 max-w-7xl px-5 mx-auto my-12">
+    <main className="w-full flex flex-col md:flex-row items-start justify-between gap-5 max-w-7xl px-5 mx-auto my-12 min-h-[60vh]">
       <AddTask></AddTask>
       <TasksList></TasksList>
     </main>

@@ -103,7 +103,7 @@ const TasksList = ({ className, ...props }: CardProps) => {
                 </div>
               ))
             ) : (
-              <p className="text-muted-foreground my-10 italic flex items-center justify-center gap-2">
+              <p className="text-muted-foreground my-5 italic flex items-center justify-center gap-2">
                 No tasks <ValueNoneIcon></ValueNoneIcon>
               </p>
             )}
@@ -112,7 +112,7 @@ const TasksList = ({ className, ...props }: CardProps) => {
         <CardFooter>
           <Button className="w-full" variant={"secondary"}>
             <CodeIcon className="mr-2 h-5 w-5" />
-            Next.js Todo with ReduxToolkit (RTK)
+            React.js, Next.js, Tailwind CSS, Shadcn-Ui, & Redux Toolkit.
           </Button>
         </CardFooter>
       </Card>

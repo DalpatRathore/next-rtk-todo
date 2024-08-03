@@ -5,6 +5,7 @@ import { Providers } from "@/redux/providers";
 import Header from "@/components/Header";
 import { Toaster } from "react-hot-toast";
 import Footer from "@/components/Footer";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,11 +21,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} w-full max-w-7xl mx-auto`}>
+      <body className={inter.className}>
         <Providers>
-          <Header></Header>
-          {children}
-          <Footer></Footer>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header></Header>
+            {children}
+            <Footer></Footer>
+          </ThemeProvider>
           <Toaster position="top-center" />
         </Providers>
       </body>

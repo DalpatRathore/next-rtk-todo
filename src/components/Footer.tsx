@@ -1,9 +1,10 @@
 const Footer = () => {
   return (
-    <footer className="w-full flex flex-col-reverse md:flex-row items-center justify-between bg-zinc-50 text-surface dark:bg-neutral-700 dark:text-white py-5 gap-5 px-5 rounded-md">
+    <footer className="w-full flex flex-col-reverse md:flex-row items-center justify-between bg-zinc-50 text-surface dark:bg-neutral-700 dark:text-white gap-5 rounded-md mx-auto max-w-screen-xl px-5 py-5">
       <div className="w-full text-center md:text-left">
         <p className="text-sm text-muted-foreground">
-          NOTE: App data is stored only in local storage.
+          <span className="font-semibold">NOTE: </span>The app stores data in
+          local storage.
         </p>
       </div>
 

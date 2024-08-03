@@ -58,7 +58,7 @@ const AddTask = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" disabled={isSubmitting}>
+          <Button type="submit" disabled={isSubmitting} size={"lg"}>
             Add
             <PlusCircledIcon className="ml-2"></PlusCircledIcon>
           </Button>
