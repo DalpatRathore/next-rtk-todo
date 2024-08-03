@@ -21,11 +21,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { removeTask, toggleTaskCompletion } from "@/redux/taskSlice";
 import EditTask from "./EditTask";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { formatDate } from "date-fns";
 import { formatDateTime } from "@/lib/formatter";
 import { Checkbox } from "./ui/checkbox";
+import ConfettiSparkles from "./ConfettiSparkles";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -33,8 +33,6 @@ const TasksList = ({ className, ...props }: CardProps) => {
   const [open, setOpen] = useState(false);
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
-
-  console.log(tasks);
 
   const dispatch = useDispatch();
 
@@ -47,12 +45,18 @@ const TasksList = ({ className, ...props }: CardProps) => {
     setSelectedTaskId(id);
     setOpen(true);
   };
-  const handleTaskCompletionToggle = (id: string) => {
-    dispatch(toggleTaskCompletion({ id }));
+
+  // Check if all tasks are completed
+  const allTasksCompleted = tasks.every(task => task.completed);
+
+  const handleTaskCompletionToggle = (taskId: string) => {
+    dispatch(toggleTaskCompletion({ id: taskId }));
   };
 
   return (
     <>
+      {allTasksCompleted && <ConfettiSparkles></ConfettiSparkles>}
+
       {open && selectedTaskId && (
         <EditTask
           id={selectedTaskId}
