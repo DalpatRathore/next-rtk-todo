@@ -12,10 +12,8 @@ type Task = {
     tasks: Task[];
   };
 
-// Initialize state with data from localStorage or an empty array
-const initialState: TaskState = {
-    tasks: JSON.parse(localStorage.getItem("tasks") || "[]"),
-  };
+
+ 
 
 // Define payload types
 type AddTaskPayload = {
@@ -35,10 +33,37 @@ type AddTaskPayload = {
     id: string;
   };
 
+
+
+// Helper function to get tasks from localStorage
+const getTasksFromLocalStorage = (): Task[] => {
+  if (typeof localStorage !== 'undefined') {
+    try {
+      const savedTasks = localStorage.getItem("tasks");
+      return savedTasks ? JSON.parse(savedTasks) as Task[] : [];
+    } catch (error) {
+      console.error('Error parsing tasks from localStorage:', error);
+      return [];
+    }
+  }
+  return [];
+};
+
+// Initialize state with data from localStorage or an empty array
+const initialState: TaskState = {
+  tasks: getTasksFromLocalStorage(),
+};
+
 // Helper function to update localStorage
 const updateLocalStorage = (tasks: Task[]) => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  };
+  if (typeof localStorage !== 'undefined') {
+    try {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    } catch (error) {
+      console.error('Error saving tasks to localStorage:', error);
+    }
+  }
+};
 
 const tasksSlice  = createSlice ({
     name:'tasks',

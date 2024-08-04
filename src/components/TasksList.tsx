@@ -46,8 +46,10 @@ const TasksList = ({ className, ...props }: CardProps) => {
     setOpen(true);
   };
 
-  // Check if all tasks are completed
-  const allTasksCompleted = tasks.every(task => task.completed);
+  let allTasksCompleted = false;
+  if (tasks.length > 0) {
+    allTasksCompleted = tasks.every(task => task.completed);
+  }
 
   const handleTaskCompletionToggle = (taskId: string) => {
     dispatch(toggleTaskCompletion({ id: taskId }));
@@ -102,7 +104,7 @@ const TasksList = ({ className, ...props }: CardProps) => {
                       >
                         {task.name}
                       </p>
-                      <div className="flex items-center justify-center gap-1">
+                      <div className="flex items-center justify-start gap-1">
                         <span className="flex h-2 w-2 rounded-full bg-sky-500" />
                         <span className="text-xs text-muted-foreground">
                           {formatDateTime(task.date)}
