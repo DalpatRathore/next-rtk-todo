@@ -50,7 +50,7 @@ const AddTask = () => {
             name="task"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Task Name</FormLabel>
+                <FormLabel>Task</FormLabel>
                 <FormControl>
                   <Input placeholder="For e.g. Go for gym" {...field} />
                 </FormControl>

@@ -98,9 +98,10 @@ const TasksList = ({ className, ...props }: CardProps) => {
                     <div className="space-y-1">
                       <p
                         className={cn(
-                          "text-base font-medium leading-relaxed capitalize",
+                          "text-base font-medium leading-relaxed capitalize cursor-pointer",
                           task.completed && "line-through"
                         )}
+                        onClick={() => handleTaskCompletionToggle(task.id)}
                       >
                         {task.name}
                       </p>
