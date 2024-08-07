@@ -26,11 +26,14 @@ import toast from "react-hot-toast";
 import { formatDateTime } from "@/lib/formatter";
 import { Checkbox } from "./ui/checkbox";
 import ConfettiSparkles from "./ConfettiSparkles";
+import { Skeleton } from "./ui/skeleton";
+import Loading from "./Loading";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
 const TasksList = ({ className, ...props }: CardProps) => {
   const [open, setOpen] = useState(false);
+  const [hydration, setHydration] = useState(false);
   const tasks = useSelector((state: RootState) => state.tasks.tasks);
   const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
 
@@ -54,6 +57,46 @@ const TasksList = ({ className, ...props }: CardProps) => {
   const handleTaskCompletionToggle = (taskId: string) => {
     dispatch(toggleTaskCompletion({ id: taskId }));
   };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setHydration(true);
+    }
+  }, []);
+
+  if (!hydration) {
+    return (
+      <Card className="w-full">
+        <CardHeader className="text-center">
+          <CardTitle>Tasks List</CardTitle>
+          <CardDescription>You have 0 tasks.</CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-4">
+          <div className=" flex items-center space-x-4 rounded-md border p-4">
+            <BellIcon />
+            <div className="flex-1 space-y-1">
+              <p className="text-sm font-medium leading-none">Add Tasks</p>
+              <p className="text-xs text-muted-foreground">
+                Let your productivity shine!
+              </p>
+            </div>
+            <CodeIcon className="h-6 w-6"></CodeIcon>
+          </div>
+          <div className="w-full space-y-4">
+            <Loading></Loading>
+            <Loading></Loading>
+            <Loading></Loading>
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button className="w-full" variant={"secondary"}>
+            <CodeIcon className="mr-2 h-5 w-5" />
+            React.js, Next.js, Tailwind CSS, Shadcn-Ui, & Redux Toolkit.
+          </Button>
+        </CardFooter>
+      </Card>
+    );
+  }
 
   return (
     <>
