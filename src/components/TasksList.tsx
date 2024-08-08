@@ -89,9 +89,10 @@ const TasksList = ({ className, ...props }: CardProps) => {
           </div>
         </CardContent>
         <CardFooter>
-          <Button className="w-full" variant={"secondary"}>
+          <Button className="w-full text-xs" variant={"secondary"}>
             <CodeIcon className="mr-2 h-5 w-5" />
-            React.js, Next.js, Tailwind CSS, Shadcn-Ui, & Redux Toolkit.
+            React.js, Next.js, Tailwind-CSS, Shadcn-Ui, React-Hook-Form, Zod, &
+            Redux-Toolkit.
           </Button>
         </CardFooter>
       </Card>
@@ -182,9 +183,10 @@ const TasksList = ({ className, ...props }: CardProps) => {
           </div>
         </CardContent>
         <CardFooter>
-          <Button className="w-full" variant={"secondary"}>
+          <Button className="w-full text-xs" variant={"secondary"}>
             <CodeIcon className="mr-2 h-5 w-5" />
-            React.js, Next.js, Tailwind CSS, Shadcn-Ui, & Redux Toolkit.
+            React.js, Next.js, Tailwind-CSS, Shadcn-Ui, React-Hook-Form, Zod, &
+            Redux-Toolkit.
           </Button>
         </CardFooter>
       </Card>

@@ -1,8 +1,8 @@
 
 const DATE_TIME_FOMATTER = new Intl.DateTimeFormat(
-    "en",{
-        dateStyle:'full',
-        timeStyle:'medium'
+  "en",{
+        dateStyle:'long',
+        timeStyle:'short'
     }
 )
 
